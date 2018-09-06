@@ -1,8 +1,26 @@
 <style>
-.ace_editor { height: 200px; }
+.ace_editor {
+  height: 400px;
+  border: 1px solid #DDD;
+	border-radius: 4px;
+	border-bottom-right-radius: 0px;
+ }
 </style>
 
 <div class="container">
-  <h1> Code Exec Home Page </h1>
-  <div ui-ace></div>
+  <h2> Code Exec Home Page </h2>
+  <div class='row'>
+			<div class='col-md-2'>
+					<select class="form-control" ng-options="lang as lang.label for lang in langs"
+          ng-model="selectedLang" ng-change="modeChanged()" >
+						</select>
+			</div>
+	</div>
+  <br/>
+  <div class='row'>
+    <div class='col-md-12'>
+      <div ui-ace="aceOption" ></div>
+    </div>
+  </div>
+
 </div>

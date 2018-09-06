@@ -6,10 +6,16 @@
     <%= csp_meta_tag %>
 
     <%= stylesheet_link_tag    'application', media: 'all' %>
-    <%= javascript_include_tag 'application' %>
+
   </head>
 
   <body ng-controller="RootController">
     <%= yield %>
   </body>
+  <%= javascript_include_tag 'application' %>
+  <script type="text/javascript">
+    if (typeof ace !== 'undefined') {
+      ace.config.set('basePath', "<%= asset_url 'assets/ace', skip_pipeline: true %>");
+    }
+  </script>
 </html>
