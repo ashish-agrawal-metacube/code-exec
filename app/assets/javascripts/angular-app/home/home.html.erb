@@ -1,10 +1,23 @@
 <style>
-.ace_editor {
-  height: 400px;
-  border: 1px solid #DDD;
-	border-radius: 4px;
-	border-bottom-right-radius: 0px;
- }
+
+  .ace_editor {
+
+    border: 1px solid #DDD;
+  	border-radius: 4px;
+  	border-bottom-right-radius: 0px;
+   }
+
+  #source-code {
+    height: 400px;
+  }
+
+  #input {
+   height: 120px;
+  }
+
+  #output {
+    height: 150px;
+  }
 </style>
 
 <div class="container">
@@ -15,20 +28,47 @@
           ng-model="selectedLang" ng-change="modeChanged()" >
 						</select>
 			</div>
-      <div class="col-md-2">
-				<button type="button" class="btn btn-success" ng-click="run()"><i class="fa fa-code"></i> Run</button>
+      <div class="col-md-1">
+				<button type="button" class="btn btn-success" ng-disabled="execution_pending" ng-click="run()"><i class="fa fa-code"></i> Run</button>
+			</div>
+      <div class="col-md-1">
+        <p ng-show="execution_pending">
+          <i class="fa fa-2x fa-cog fa-spin "></i>
+        </p>
 			</div>
 	</div>
   <div class="row">
     <div class="col-md-12">
       <h4>Source Code</h4>
-      <div ui-ace="aceOption" ng-model="code.source"></div>
+      <div id="source-code" ui-ace="aceOptionSource" ng-model="code.source"></div>
     </div>
   </div>
   <div class="row">
     <div class="col-md-12">
       <h4>Input</h4>
-      <textarea rows="5" style="width:100%;border: 1px solid #bbb;" ng-model="code.input"> </textarea>
+
+      <div id="input" ui-ace="aceOptionInput" ng-model="code.input"></div>
+      <!-- <textarea rows="5" style="width:100%;border: 1px solid #bbb;" ng-model="code.input"> </textarea> -->
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="row">
+        <div class="col-md-10">
+          <h4>Output
+            <span class="text-warning" ng-show="code.result=='compile_error'" style="font-size:16px"><i class="fa fa-exclamation-triangle"></i> Compilation Error</span>
+            <span class="text-danger" ng-show="code.result=='runtime_error'" style="font-size:16px"><i class="fa fa-exclamation-triangle"></i> Runtime Error</span>
+            <span ng-show="code.result=='success'" style="font-size:16px"><span class="text-success">Success</span> Time: {{code.execution_time}}s Memory: {{code.memory}}K</span>
+          </h4>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <div id="output" ui-ace="aceOptionOutput" disabled ng-model="code.output"></div>
+          <!-- <textarea rows="5" readonly style="width:100%;border: 1px solid #bbb;" ng-model="code.output"> </textarea> -->
+        </div>
+      </div>
+
     </div>
   </div>
 

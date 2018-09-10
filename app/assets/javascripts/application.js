@@ -25,5 +25,6 @@
 //
 //= require ace/ace
 //= require ace/ui-ace
+//= require ace/ext-language_tools
 //
 //= require_tree .
