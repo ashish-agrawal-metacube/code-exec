@@ -15,6 +15,8 @@ class Code
     case lang
     when "g++"
       c = CppExec.new(source,input)
+    when "java"
+      c = JavaExec.new(source,input)
     end
     begin
       result = c.execute()

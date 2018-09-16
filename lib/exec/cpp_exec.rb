@@ -35,7 +35,7 @@ class CppExec
         file.puts(@source)
       end
       compile_error = ""
-      Open3.popen2e("g++ -std=c++11  -o #{dir}/output.out #{dir}/source.cpp  ") do |stdin, stdout_and_stderr, wait_thr|
+      Open3.popen2e("g++ -std=c++14  -o #{dir}/output.out #{dir}/source.cpp  ") do |stdin, stdout_and_stderr, wait_thr|
         while line=stdout_and_stderr.gets do
           compile_error << line
         end
@@ -146,7 +146,7 @@ class CppExec
       end
 
     ensure
-      # remove the directory.
+      # remove temp directory.
       FileUtils.remove_entry dir
     end
     return exec_data
