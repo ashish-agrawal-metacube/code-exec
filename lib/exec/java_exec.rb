@@ -17,6 +17,48 @@ class JavaExec
     end
   end
 
+  def main_class
+    # remove all java comments
+    @source.gsub! /((?:\/\*(?:[^*]|(?:\*+[^*\/]))*\*+\/)|(?:\/\/.*))/, ""
+    # remove all string literals
+    @source.gsub! /((".+?")|('.+?'))/, ""
+    # add a space before an after each keyword that we scan
+    @source.gsub!(/[{}]|class|interface|public|main/) {|m| " #{m} "}
+
+    tokens = @source.strip.split(/\s+/)
+    main_class = ""
+    current_class = ""
+    stack = []
+    i = 0; n = tokens.length
+    while i<n
+      case tokens[i]
+      when "class","interface"
+        if current_class.empty?
+          current_class = tokens[i+1]
+        else
+          current_class = "#{current_class} #{tokens[i+1]}"
+        end
+        stack.push(current_class)
+      when "{"
+        stack.push("{")
+      when "}"
+        stack.pop
+        top = stack[stack.size-1]
+        if !("{}".include?(top)) # top element is a class or interface
+          current_class = top.rpartition(" ").first
+          stack.pop
+        end
+      when "public"
+        if (i+3)<n && tokens[i+1]=="static" && tokens[i+2]=="void" && tokens[i+3]=="main"
+          main_class = current_class.gsub(' ','$')
+          i = i + 3
+        end
+      end
+      i = i+1
+    end
+    main_class
+  end
+
 
   def execute()
     dir = Dir.mktmpdir
@@ -39,16 +81,19 @@ class JavaExec
         raise CompileTimeError, compile_error
       end
 
+      puts "Main class"
+      puts main_class
+
       success = false
       success_class = ""
       runtine_error = ""
 
       Dir["#{dir}/java/*.class"].sort!.each do |class_file|
         class_name = File.basename(class_file, '.class')
-        
+
         th1, th2, th3 = nil
 
-        stdin, stdout, stderr, wait_thr = Open3.popen3("java -classpath #{dir}/java #{class_name}")
+        stdin, stdout, stderr, wait_thr = Open3.popen3("java -classpath #{dir}/java '#{class_name}'")
 
         begin
           timeout = ENV["EXECUTION_TIMEOUT"].present? ? ENV["EXECUTION_TIMEOUT"].to_i : 5
@@ -126,7 +171,7 @@ class JavaExec
         end
       else
         time,memory = 0,0
-        Open3.popen3("/usr/bin/time -f \"%U %M\" java -classpath #{dir}/java #{success_class} ") do |stdin, stdout, stderr, wait_thr|
+        Open3.popen3("/usr/bin/time -f \"%U %M\" java -classpath #{dir}/java '#{success_class}' ") do |stdin, stdout, stderr, wait_thr|
           begin
             th1 = Thread.new do
               until stdout.eof? do
