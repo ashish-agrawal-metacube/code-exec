@@ -2,7 +2,7 @@ angular.module('codeExecApp').controller('HomeCtrl', ['$scope','$http', function
 
   $scope.langs = [{label: "C", compiler: "gcc", mode: "c_cpp", default_snippet: "#include <stdio.h>\n\nint main(void) {\n\t// your code goes here\n\treturn 0;\n}\n"  },
   {label: "C++",compiler: "g++", mode: "c_cpp", default_snippet: "#include <iostream>\nusing namespace std;\n\nint main() {\n\t// your code goes here\n\treturn 0;\n}" },
-  {label: "Java 8", compiler: "java", mode: "java", default_snippet: "/* package code_exec; // don't place package name! */\n\nimport java.util.*;\nimport java.lang.*;\nimport java.io.*;\n\n/* Name of the class has to be \"Main\" only if the class is public. */\nclass CodeExec\n{\n\tpublic static void main (String[] args) throws java.lang.Exception\n\t{\n\t\t// your code goes here\n\t}\n}" }] ;
+  {label: "Java", compiler: "java", mode: "java", default_snippet: "/* package code_exec; // don't place package name! */\n\nimport java.util.*;\nimport java.lang.*;\nimport java.io.*;\n\n/* Name of the class has to be \"Main\" only if the class is public. */\nclass CodeExec\n{\n\tpublic static void main (String[] args) throws java.lang.Exception\n\t{\n\t\t// your code goes here\n\t}\n}" }] ;
 
   $scope.code = {};
 
