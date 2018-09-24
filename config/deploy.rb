@@ -56,11 +56,11 @@ task :setup do
   command %[mkdir -p "#{deploy_to}/shared/tmp"]
   command %[chmod g+rx,u+rwx "#{deploy_to}/shared/tmp"]
 
-  command %[mkdir -p "#{deploy_to}/#{shared_path}/tmp/sockets"]
-  command %[chmod g+rx,u+rwx "#{deploy_to}/#{shared_path}/tmp/sockets"]
-  
-  command %[mkdir -p "#{deploy_to}/#{shared_path}/tmp/pids"]
-  command %[chmod g+rx,u+rwx "#{deploy_to}/#{shared_path}/tmp/pids"]
+  command %[mkdir -p "#{deploy_to}/shared/tmp/sockets"]
+  command %[chmod g+rx,u+rwx "#{deploy_to}/shared/tmp/sockets"]
+
+  command %[mkdir -p "#{deploy_to}/shared/tmp/pids"]
+  command %[chmod g+rx,u+rwx "#{deploy_to}/shared/tmp/pids"]
 
   command %[touch "#{deploy_to}/shared/config/application.yml"]
 end
