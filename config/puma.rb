@@ -7,28 +7,61 @@
 threads_count = ENV.fetch("RAILS_MAX_THREADS") { 5 }
 threads threads_count, threads_count
 
-# Specifies the `port` that Puma will listen on to receive requests; default is 3000.
-#
-port        ENV.fetch("PORT") { 3000 }
-
 # Specifies the `environment` that Puma will run in.
 #
-environment ENV.fetch("RAILS_ENV") { "development" }
+rails_env = ENV.fetch("RAILS_ENV") { "development" }
+environment rails_env
 
-# Specifies the number of `workers` to boot in clustered mode.
-# Workers are forked webserver processes. If using threads and workers together
-# the concurrency of the application would be max `threads` * `workers`.
-# Workers do not work on JRuby or Windows (both of which do not support
-# processes).
-#
-# workers ENV.fetch("WEB_CONCURRENCY") { 2 }
+app_dir = File.expand_path("../..", __FILE__)
+directory app_dir
+shared_dir = "#{app_dir}/shared"
 
-# Use the `preload_app!` method when specifying a `workers` number.
-# This directive tells Puma to first boot the application and load code
-# before forking the application. This takes advantage of Copy On Write
-# process behavior so workers use less memory.
-#
-# preload_app!
 
-# Allow puma to be restarted by `rails restart` command.
-plugin :tmp_restart
+if rails_env == "production"
+  # Logging
+  stdout_redirect "#{shared_dir}/log/puma.stdout.log", "#{shared_dir}/log/puma.stderr.log", true
+
+  # Set master PID and state locations
+  pidfile "#{shared_dir}/tmp/pids/puma.pid"
+  state_path "#{shared_dir}/tmp/pids/puma.state"
+
+  # Specifies the number of `workers` to boot in clustered mode.
+  # Workers are forked webserver processes. If using threads and workers together
+  # the concurrency of the application would be max `threads` * `workers`.
+  # Workers do not work on JRuby or Windows (both of which do not support
+  # processes).
+  #
+  # Change to match your CPU core count
+  workers ENV.fetch("WEB_CONCURRENCY") { 2 }
+
+  # Use the `preload_app!` method when specifying a `workers` number.
+  # This directive tells Puma to first boot the application and load code
+  # before forking the application. This takes advantage of Copy On Write
+  # process behavior so workers use less memory.
+  #
+  # preload_app!
+  preload_app!
+
+  # Set up socket location
+  bind "unix://#{shared_dir}/tmp/sockets/puma.sock"
+
+  before_fork do
+    # app does not use database, uncomment when needed
+    # ActiveRecord::Base.connection_pool.disconnect!
+  end
+
+  on_worker_boot do
+    ActiveSupport.on_load(:active_record) do
+      # app does not use database, uncomment when needed
+      # db_url = ENV.fetch('DATABASE_URL')
+      # puts "puma: connecting to DB at #{db_url}"
+      # ActiveRecord::Base.establish_connection(db_url)
+    end
+  end
+elsif rails_env == "development"
+  # Specifies the `port` that Puma will listen on to receive requests; default is 3000.
+  port   ENV.fetch("PORT") { 3000 }
+
+  # Allow puma to be restarted by `rails restart` command.
+  plugin :tmp_restart
+end
