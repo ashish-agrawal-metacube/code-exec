@@ -27,4 +27,9 @@
 //= require ace/ui-ace
 //= require ace/ext-language_tools
 //
+//= require ace/theme-chrome
+//= require ace/mode-c_cpp
+//= require ace/mode-java
+//= require ace/snippets/text
+//
 //= require_tree .
