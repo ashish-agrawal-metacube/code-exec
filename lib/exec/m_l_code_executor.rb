@@ -12,7 +12,8 @@ class MLCodeExecutor < CodeExecutor
 
   def run(command)
     th1, th2 = nil
-    stdin, stdout_stderr, wait_thr = Open3.popen2e(command,pgroup: true)
+
+    stdin, stdout_stderr, wait_thr = Open3.popen2e(command,pgroup: true) # add rlimit_nproc: [0, 0] to disable fork()
 
     begin
       timeout = ENV["EXECUTION_TIMEOUT"].present? ? ENV["EXECUTION_TIMEOUT"].to_i : 5
