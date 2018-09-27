@@ -1,17 +1,19 @@
-**CodeExec is a hassle free web based compile and execution tool which allows you to compile source code and execute it against input data. Set up CodeExec on your local system and you will not be dependent on online compilers (if you use online compilers for their simplicity).**
+### What is CodeExec ?
+
+CodeExec is a hassle free web based compile and execution tool which allows you to compile source code and execute it against input data. Set up CodeExec on your local system and you will not be dependent on online compilers (if you use online compilers for their simplicity).
 
 Some disadvantages of using online compiles
 1. Your code may not be secure (Online compilers can leak your source codes)
-2. During long competitive programming contests online compilers face heavy traffic thus respond slowly and you have to wait for your turn into the queue
+2. During long competitive programming contests, online compilers face heavy traffic thus respond slowly and you have to wait for your turn into the queue
 3. You are allowed to make only fixed submissions in certain duration of time
 4. You require an internet connection
 
-**CodeExec eliminates all disadvantages listed above once it is installed it on your local system. You get all the simplicity of online compilers offline on your local machine. It is just one time installation effort. Currently it can be installed on Linux based operating systems and supports only C, C++ and Java. You can easily add more languages. Later in this guide I will explain adding a new language.**
+CodeExec eliminates all disadvantages listed above once it is installed it on your local system. You get all the simplicity of online compilers offline on your local machine. It is just one time installation effort. Currently it can be installed on Linux based operating systems and supports only C, C++ and Java. You can easily add more languages. Later in this guide I will explain how you can add a new language.
 
 ### DEMO SERVER APP
   You can check a running demo app [here](http://149.129.129.87)
 
-### Installation on Linux & Usage
+### Installation on Linux
 
 1. Install **gcc** compiler (Skip this step if you already have a **gcc** compiler or you don't want to compile C/C++ code)
 
@@ -91,12 +93,12 @@ Some disadvantages of using online compiles
   10. Open application in your favourite web browser
 
       ```
-      localhost:3001
+      http://localhost:3001
       ```
 
-## Adding a new language
+## How to add a new language ?
 
-If you want to compile a new language, First you need to download compiler of that language on your local system then you have to create an ruby class that should extends either **MLCodeExecutor** or **VMCodeExecutor**. If you are adding a language that generates a code that could be executed by Linux OS (like: C++, Bash, Objective-C) you should extend **MLCodeExecutor**. If you are adding a language that generates a code that could be executed by Virtual Machine (like: Java, Python3, Ruby) you should extend **VMCodeExecutor** and place it inside **lib/exec** folder of application. Add a check for the new language in **lib/exec/code_executor_factory.rb** and add a JSON object of your new language in **$scope.langs** at **app/assets/javascripts/angular-app/home/home-ctrl.js**. Now You have to restart the server to see the effect. You should take reference of **lib/exec/c_executor.rb**
+If you want to compile a new language, First you need to download compiler of that language on your local system then you have to create an ruby class that should extends either **MLCodeExecutor** or **VMCodeExecutor**. If you are adding a language that generates a code that could be executed by Linux OS (like: C++, Bash, Objective-C) you should extend **MLCodeExecutor**. If you are adding a language that generates a code that could be executed by Virtual Machine (like: Java, Python3, Ruby) you should extend **VMCodeExecutor** and place it inside **lib/exec** folder of application. Add a check for the new language in [**lib/exec/code_executor_factory.rb**](https://github.com/ashish-agrawal-metacube/code-exec/blob/master/lib/exec/code_executor_factory.rb) and add a JSON object of your new language in **$scope.langs** at [**app/assets/javascripts/angular-app/home/home-ctrl.js**](https://github.com/ashish-agrawal-metacube/code-exec/blob/master/app/assets/javascripts/angular-app/home/home-ctrl.js). Now You have to restart the server to see the effect. You should take reference of **lib/exec/c_executor.rb**
 
  ### Full example (adding Python3)
 
