@@ -16,7 +16,8 @@ class CodeExecutor
 
   # read output from given stream
   def read_output(stream)
-    until stream.eof? || @output.bytesize>=ENV["MAX_STDOUT"].to_i do
+    max_out = ENV["MAX_STDOUT"].present? ? ENV["MAX_STDOUT"].to_i : 2097152 # 2MB
+    until stream.eof? || @output.bytesize>=max_out do
       @output << stream.readpartial(4096).force_encoding("ISO-8859-1").encode("UTF-8")
     end
   end

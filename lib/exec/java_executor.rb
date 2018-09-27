@@ -7,14 +7,18 @@ class JavaExecutor < VMCodeExecutor
   CLASS_NOT_FOUND_MSG = "The program compiled successfully, but main class was not found.\nMain class should contain method: public static void main (String[] args).".freeze
 
   def execute
+    # creates an empty temp directory
     dir = Dir.mktmpdir
     begin
+      # save source code to a file inside temp directory
       save_source_file("#{dir}/Main.java")
 
       Dir.mkdir "#{dir}/java"
 
+      # compile Main.java
       compile("javac -d #{dir}/java #{dir}/Main.java")
       if @compile_error.present?
+        # removes the name of temp directory
         @compile_error.gsub!("#{dir}/","")
         raise CompileTimeError, @compile_error
       end
@@ -27,6 +31,7 @@ class JavaExecutor < VMCodeExecutor
         raise RunTimeError, CLASS_NOT_FOUND_MSG
       end
 
+      # run main_class
       run("java -classpath #{dir}/java #{exec_class}")
       if @run_error.present?
         raise RunTimeError, @run_error
