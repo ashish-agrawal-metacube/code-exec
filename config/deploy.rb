@@ -12,7 +12,7 @@ require 'mina/puma'
 #   branch       - Branch name to deploy. (needed by mina/git)
 
 set :application_name, 'code_exec'
-set :domain, '149.129.129.87'
+set :domain, ENV['DEPLOY_DOMAIN']
 deploy_to = '/var/www/html'
 set :deploy_to, deploy_to
 set :repository, 'git@github.com:ashish-agrawal-metacube/code-exec.git'
@@ -24,7 +24,7 @@ set :rvm_use_path, '/usr/local/rvm/scripts/rvm'
   set :user, 'root'          # Username in the server to SSH to.
 # set :port, '22'           # SSH port number.
   set :forward_agent, true     # SSH forward_agent.
-  set :identity_file, '/home/ashish/.ssh/code-exec-alibaba.pem'
+  set :identity_file, ENV['IDENTITY_FILE']
 
 # Shared dirs and files will be symlinked into the app-folder by the 'deploy:link_shared_paths' step.
 # Some plugins already add folders to shared_dirs like `mina/rails` add `public/assets`, `vendor/bundle` and many more

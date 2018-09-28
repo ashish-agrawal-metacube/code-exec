@@ -18,24 +18,33 @@
   #output {
     height: 120px;
   }
+
+  .vcenter {
+    display: inline-block;
+    vertical-align: middle;
+    float: none;
+  }
 </style>
 
 <div class="container">
-  <h3> Code Exec Home </h3>
+  <p></p>
   <div class="row">
-			<div class="col-md-2">
-				<select class="form-control" ng-options="lang as lang.label for lang in langs"
-          ng-model="selectedLang" ng-change="modeChanged()" >
-						</select>
-			</div>
-      <div class="col-md-1">
-				<button type="button" class="btn btn-success" ng-disabled="execution_pending" ng-click="run()"><i class="fa fa-code"></i> Run</button>
-			</div>
-      <div class="col-md-1">
-        <p ng-show="execution_pending">
-          <i class="fa fa-2x fa-cog fa-spin "></i>
-        </p>
-			</div>
+		<div class="col-md-2 vcenter">
+			<select class="form-control" ng-options="lang as lang.label for lang in langs"
+        ng-model="selectedLang" ng-change="modeChanged()" >
+					</select>
+		</div>
+    <div class="col-md-1 vcenter">
+			<button type="button" class="btn btn-success" ng-disabled="execution_pending" ng-click="run()"><i class="fa fa-code"></i> Run</button>
+		</div>
+    <div class="col-md-1 vcenter">
+      <p ng-show="execution_pending">
+        <i class="fa fa-2x fa-cog fa-spin "></i>
+      </p>
+		</div>
+    <div class="col-md-3 vcenter">
+      <h3 style="margin: 0px"> Code Exec Home </h3>
+    </div>
 	</div>
   <div class="row">
     <div class="col-md-12">
