@@ -3,6 +3,8 @@ class CodeExecutorFactory
 
   def self.for(lang,source,input)
     case lang
+    when "gcc"
+      CExecutor.new(source,input)
     when "g++"
       CppExecutor.new(source,input)
     when "java"
