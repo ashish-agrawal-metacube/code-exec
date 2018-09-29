@@ -30,7 +30,7 @@ CodeExec eliminates all drawbacks listed above once it is installed it on your l
     sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-8 60 --slave /usr/bin/g++ g++ /usr/bin/g++-8 &&
     sudo update-alternatives --config gcc
     ```
-2. Install **Java** compiler (Skip this step if you already have a **java** compiler or you don't want to compile Java code)
+2. Install **Java** compiler (JDK) (Skip this step if you already have a **java** compiler or you don't want to compile Java code)
 
    **OpenJDK 8** installation commands for ubuntu (14.04, 16.04, 18.04)
 
@@ -80,7 +80,7 @@ CodeExec eliminates all drawbacks listed above once it is installed it on your l
       add following properties in config/application.yml file (placed inside application directory code-exec ).
       ```
       EXECUTION_TIMEOUT: 5 # (TIME LIMIT in seconds) Time after which execution of a code should be terminated
-      MAX_STDOUT: 2097152 # (in bytes) Max STDOUT size
+      MAX_STDOUT: 2097152 # Max STDOUT size (in bytes)
       RAILS_MASTER_KEY: "5d13a50e85219ac60904bc8f877ffb2b" # It could be any random string
       ```
   9. Run local server
