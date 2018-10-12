@@ -11,7 +11,7 @@ Some drawbacks of using online compilers
 CodeExec eliminates all drawbacks listed above once it is installed it on your local system. You get all the simplicity of online compilers offline on your local machine. It is just one time installation effort. Currently it can be installed on Linux based operating systems and supports only C, C++ and Java. You can easily add more languages. Later in this guide I will explain how you can add a new language.
 
 ### DEMO SERVER APP
-  You can check a running demo app [here](http://149.129.129.87)
+  You can check a running demo app [here](http://149.129.130.161)
 
 ### Installation on Linux
 
