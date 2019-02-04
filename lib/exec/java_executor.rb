@@ -52,8 +52,8 @@ class JavaExecutor < VMCodeExecutor
     @source.gsub! /((?:\/\*(?:[^*]|(?:\*+[^*\/]))*\*+\/)|(?:\/\/.*))/, ""
     # remove all string literals
     @source.gsub! /((".+?")|('.+?'))/, ""
-    # add a space before an after each keyword that we scan
-    @source.gsub!(/[{}<>]|class|interface|public|main/) {|m| " #{m} "}
+    # prepend and append a space for each keyword that we scan
+    @source.gsub!(/[{}<>]|class|interface|enum|public|main/) {|m| " #{m} "}
 
     tokens = @source.strip.split(/\s+/)
     main_class = ""
@@ -62,7 +62,7 @@ class JavaExecutor < VMCodeExecutor
     i = 0; n = tokens.length
     while i<n
       case tokens[i]
-      when "class","interface"
+      when "class","interface", "enum"
         if current_class.empty?
           current_class = tokens[i+1]
         else
@@ -74,7 +74,7 @@ class JavaExecutor < VMCodeExecutor
       when "}"
         stack.pop
         top = stack.size-1
-        if !("{}".include?(stack[top])) # top element is a class or interface
+        if !("{}".include?(stack[top])) # top element is a class, interface or enum
           current_class = stack[top].rpartition(' ').first
           stack.pop
         end
