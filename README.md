@@ -11,7 +11,7 @@ Some drawbacks of using online compilers
 CodeExec eliminates all drawbacks listed above once it is installed it on your local system. You get all the simplicity of online compilers offline on your local machine. It is just one time installation effort. Currently it can be installed on Linux based operating systems and supports only C, C++ and Java. You can easily add more languages. Later in this guide I will explain how you can add a new language.
 
 ### DEMO SERVER APP
-  You can check a running demo app [here](http://149.129.130.161)
+  You can check a running demo app [here](http://3.82.197.177)
 
 ### Installation on Linux
 
@@ -47,7 +47,7 @@ CodeExec eliminates all drawbacks listed above once it is installed it on your l
     gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 7D2BAF1CF37B13E2069D6956105BD0E739499BDB
     curl -sSL https://get.rvm.io | bash -s stable
     rvm requirements
-    rvm install 2.5.0
+    rvm install 2.6.0
     ```
  4. Install **nodejs** (nodejs is required for Javascript Runtime)
 
@@ -177,4 +177,4 @@ If you want to compile a new language, First you need to download compiler of th
       ```
 
 ### How can I help?
-If you have a problem or any questions/suggestions, Please, just throw me an email at <ashish.agrawal@metacube.com>
+If you have a problem or any questions/suggestions, Please, just throw me an email at <ashish580839@gmail.com>

@@ -12,19 +12,19 @@ require 'mina/puma'
 #   branch       - Branch name to deploy. (needed by mina/git)
 
 set :application_name, 'code_exec'
-set :domain, ENV['DEPLOY_DOMAIN']
+set :domain, ENV["domain"]
 deploy_to = '/var/www/html'
 set :deploy_to, deploy_to
-set :repository, 'git@github.com:ashish-agrawal-metacube/code-exec.git'
+set :repository, 'https://github.com/ashish-agrawal-metacube/code-exec.git'
 set :branch, 'master'
 # set :term_mode, nil
-set :rvm_use_path, '/usr/local/rvm/scripts/rvm'
+set :rvm_use_path, '/home/ubuntu/.rvm/scripts/rvm'
 
 # Optional settings:
-  set :user, 'root'          # Username in the server to SSH to.
+  set :user, 'ubuntu'          # Username in the server to SSH to.
 # set :port, '22'           # SSH port number.
   set :forward_agent, true     # SSH forward_agent.
-  set :identity_file, ENV['IDENTITY_FILE']
+  set :identity_file, ENV["identity_file"]
 
 # Shared dirs and files will be symlinked into the app-folder by the 'deploy:link_shared_paths' step.
 # Some plugins already add folders to shared_dirs like `mina/rails` add `public/assets`, `vendor/bundle` and many more
@@ -40,7 +40,7 @@ task :remote_environment do
   # invoke :'rbenv:load'
 
   # For those using RVM, use this to load an RVM version@gemset.
-  invoke :'rvm:use', 'ruby-2.5.0@default'
+  invoke :'rvm:use', 'ruby-2.6.0@default'
 end
 
 # Put any custom commands you need to run at setup
