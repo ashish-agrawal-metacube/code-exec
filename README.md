@@ -38,9 +38,9 @@ CodeExec eliminates all drawbacks listed above once it is installed it on your l
    sudo apt-get update
    sudo apt install openjdk-8-jdk
    ```
-3. Install **Ruby 2.5** (Ruby 2.5 is required to run the application)
+3. Install **Ruby 2.6** (Ruby 2.6 is required to run the application)
 
-	**Ruby 2.5** installation commands for ubuntu via **rvm** (Ruby Version Manager)
+	**Ruby 2.6** installation commands for ubuntu via **rvm** (Ruby Version Manager)
 
 	  ```
     sudo apt-get install curl
